@@ -17,7 +17,8 @@ class GenericFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->colorName() . rand(1, 999)
+            'name' => fake()->colorName() . rand(1, 999),
+            'deleted_by' => null
         ];
     }
 }

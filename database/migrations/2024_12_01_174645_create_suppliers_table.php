@@ -22,7 +22,9 @@ return new class extends Migration
             $table->string('email')->nullable();
             $table->string('fax')->nullable();
             $table->string('telephone')->nullable();
+            $table->bigInteger('deleted_by')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

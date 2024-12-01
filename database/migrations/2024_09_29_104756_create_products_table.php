@@ -23,7 +23,9 @@ return new class extends Migration
             $table->decimal('price')->default(0);
             $table->string('status')->default('active');
             $table->dateTime('expired_at')->nullable();
+            $table->bigInteger('deleted_by')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
