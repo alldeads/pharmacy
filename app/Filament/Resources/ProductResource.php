@@ -26,6 +26,12 @@ class ProductResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\Select::make('parent_id')
+                    ->label('Parent')
+                    ->placeholder('Select parent product')
+                    ->options(Product::pluck('name', 'id'))
+                    ->searchable()
+                    ->columnSpanFull(),
                 Forms\Components\Select::make('category_id')
                     ->label('Category')
                     ->options(Category::pluck('name', 'id'))
@@ -36,11 +42,6 @@ class ProductResource extends Resource
                     ->label('Generic')
                     ->options(Generic::pluck('name', 'id'))
                     ->required()
-                    ->searchable()
-                    ->columnSpanFull(),
-                Forms\Components\Select::make('parent_id')
-                    ->label('Product')
-                    ->options(Product::pluck('name', 'id'))
                     ->searchable()
                     ->columnSpanFull(),
                 Forms\Components\TextInput::make('sku')

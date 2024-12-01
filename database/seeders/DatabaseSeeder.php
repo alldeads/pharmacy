@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Generic;
 use App\Models\Product;
 use App\Models\User;
+use App\Models\Supplier;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -28,5 +29,6 @@ class DatabaseSeeder extends Seeder
         Branch::factory(20)->create();
         Generic::factory(50)->create();
         Product::factory(100)->create();
+        Supplier::factory(100)->create();
     }
 }
