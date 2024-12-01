@@ -10,6 +10,18 @@ class Stock extends Model
 {
     use HasFactory, SoftDeletes;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'product_id',
+        'branch_id',
+        'quantity',
+        'threshold',
+    ];
+
     public function product()
     {
         return $this->belongsTo(Product::class);

@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\StockResource\Pages;
 use App\Filament\Resources\StockResource\RelationManagers;
+use App\Models\Branch;
 use App\Models\Product;
 use App\Models\Stock;
 use Filament\Forms;
@@ -18,7 +19,7 @@ class StockResource extends Resource
 {
     protected static ?string $model = Stock::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-archive-box';
 
     public static function form(Form $form): Form
     {
@@ -30,6 +31,22 @@ class StockResource extends Resource
                     ->options(Product::pluck('name', 'id'))
                     ->searchable()
                     ->columnSpanFull(),
+                Forms\Components\Select::make('branch_id')
+                    ->label('Branch')
+                    ->placeholder('Select branch')
+                    ->options(Branch::pluck('name', 'id'))
+                    ->searchable()
+                    ->columnSpanFull(),
+                Forms\Components\TextInput::make('quantity')
+                    ->label('Quantity')
+                    ->required()
+                    ->numeric()
+                    ->columnSpanFull(),
+                Forms\Components\TextInput::make('threshold')
+                    ->label('Threshold')
+                    ->required()
+                    ->numeric()
+                    ->columnSpanFull(),
             ]);
     }
 
@@ -37,12 +54,14 @@ class StockResource extends Resource
     {
         return $table
             ->columns([
-                Forms\Components\TextInput::make('product.name')
-                    ->columnSpanFull(),
-                Forms\Components\TextInput::make('branch.name')
-                    ->columnSpanFull(),
-                Forms\Components\TextInput::make('quantity')
-                    ->columnSpanFull(),
+                Tables\Columns\TextColumn::make('product.name')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('branch.name')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('quantity')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('threshold')
+                    ->searchable(),
             ])
             ->filters([
                 //
