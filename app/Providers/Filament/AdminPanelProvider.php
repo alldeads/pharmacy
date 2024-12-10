@@ -3,6 +3,7 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Resources\BranchResource\Widgets\BranchOverview;
+use Althinect\FilamentSpatieRolesPermissions\FilamentSpatieRolesPermissionsPlugin;
 use App\Filament\Resources\CategoryResource\Widgets\CategoryOverview;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -59,6 +60,7 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
+            ->plugin(FilamentSpatieRolesPermissionsPlugin::make())
             ->plugin(
                 BreezyCore::make()
                 ->myProfile(
