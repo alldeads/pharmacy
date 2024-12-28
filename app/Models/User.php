@@ -11,10 +11,11 @@ use Jeffgreco13\FilamentBreezy\Traits\TwoFactorAuthenticatable;
 use Filament\Panel;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Permission\Traits\HasRoles;
+use Althinect\FilamentSpatieRolesPermissions\Concerns\HasSuperAdmin;
 
 class User extends Authenticatable implements FilamentUser
 {
-    use HasFactory, Notifiable, TwoFactorAuthenticatable, SoftDeletes, HasRoles;
+    use HasFactory, Notifiable, TwoFactorAuthenticatable, SoftDeletes, HasRoles, HasSuperAdmin;
 
     /**
      * The attributes that are mass assignable.

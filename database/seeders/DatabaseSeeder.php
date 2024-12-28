@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Models\Supplier;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -21,14 +22,21 @@ class DatabaseSeeder extends Seeder
     {
         User::factory(10)->create();
 
-        User::factory()->create([
+        $user = User::factory()->create([
             'name' => 'Test User',
             'email' => 'admin@admin.com',
         ]);
 
+        Role::create([
+            'name' => 'Super Admin',
+            'guard_name' => 'web'
+        ]);
+
+        $user->assignRole('Super Admin');
+
         Category::factory(20)->create();
         Branch::factory(20)->create();
-        Generic::factory(50)->create();
+        // Generic::factory(50)->create();
         Product::factory(100)->create();
         Supplier::factory(100)->create();
 
