@@ -45,8 +45,8 @@ class DatabaseSeeder extends Seeder
         // Category::factory(2)->create();
         Branch::factory(20)->create();
         // Generic::factory(50)->create();
-        Product::factory(100)->create();
-        Supplier::factory(100)->create();
+        Product::factory(rand(50, 100))->create();
+        Supplier::factory(20)->create();
 
         $products = Product::all();
 
