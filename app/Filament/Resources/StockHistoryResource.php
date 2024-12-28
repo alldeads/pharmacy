@@ -12,6 +12,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\IconColumn;
+use Filament\Forms\Components\Textarea;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -50,7 +51,7 @@ class StockHistoryResource extends Resource
                 Forms\Components\Select::make('movement')
                     ->options(['remove' => 'Remove', 'add' => 'Add'])
                     ->columnSpanFull(),
-                Forms\Components\TextArea::make('description')
+                TextArea::make('description')
                     ->maxLength(255)
                     ->columnSpanFull(),
             ]);
