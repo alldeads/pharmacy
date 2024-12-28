@@ -60,6 +60,7 @@ class StockHistoryResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(fn($query) => $query->orderBy('id', 'desc'))
             ->columns([
                 Tables\Columns\TextColumn::make('product.name')
                     ->numeric()
