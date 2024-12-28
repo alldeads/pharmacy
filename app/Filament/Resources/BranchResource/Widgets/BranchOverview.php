@@ -6,6 +6,7 @@ use App\Models\Branch;
 use App\Models\Category;
 use App\Models\Supplier;
 use App\Models\Product;
+use App\Models\Stock;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 
@@ -18,6 +19,7 @@ class BranchOverview extends BaseWidget
             Stat::make('Categories', Category::count()),
             Stat::make('Products', Product::count()),
             Stat::make('Suppliers', Supplier::count()),
+            Stat::make('Stocks', Stock::count()),
         ];
     }
 }

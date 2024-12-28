@@ -24,6 +24,7 @@ class Supplier extends Model
         'mobile',
         'telephone',
         'fax',
-        'email'
+        'email',
+        'day'
     ];
 }

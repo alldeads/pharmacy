@@ -23,6 +23,7 @@ class SupplierFactory extends Factory
             'email' => fake()->email(),
             'mobile' => fake()->phoneNumber(),
             'telephone' => fake()->e164PhoneNumber(),
+            'day' => fake()->dayOfWeek()
         ];
     }
 }
