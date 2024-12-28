@@ -26,7 +26,7 @@ class ProductFactory extends Factory
             'description' => fake()->sentence(),
             'cost' => rand(10, 100),
             'price' => rand(50, 1000),
-            'expired_at' => (Carbon::now())->addMonths(rand(2, 12))
+            'expired_at' => (Carbon::now())->addDays(rand(7, 20))
         ];
     }
 }
