@@ -53,6 +53,7 @@ class StockResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(fn($query) => $query->orderBy('quantity', 'asc'))
             ->columns([
                 Tables\Columns\TextColumn::make('product.name')
                     ->searchable(),
