@@ -27,8 +27,8 @@ class ProductResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Select::make('parent_id')
-                    ->label('Parent')
-                    ->placeholder('Select parent product')
+                    ->label('Product Name')
+                    ->placeholder('Select product name')
                     ->options(Product::pluck('name', 'id'))
                     ->searchable()
                     ->columnSpanFull(),
@@ -38,12 +38,12 @@ class ProductResource extends Resource
                     ->required()
                     ->searchable()
                     ->columnSpanFull(),
-                Forms\Components\Select::make('generic_id')
-                    ->label('Generic')
-                    ->options(Generic::pluck('name', 'id'))
-                    ->required()
-                    ->searchable()
-                    ->columnSpanFull(),
+                // Forms\Components\Select::make('generic_id')
+                //     ->label('Generic')
+                //     ->options(Generic::pluck('name', 'id'))
+                //     ->required()
+                //     ->searchable()
+                //     ->columnSpanFull(),
                 Forms\Components\TextInput::make('sku')
                     ->label('SKU')
                     ->required()
@@ -84,7 +84,7 @@ class ProductResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->modifyQueryUsing(fn($query) => $query->orderBy('id', 'desc'))
+            ->modifyQueryUsing(fn($query) => $query->orderBy('name', 'asc'))
             ->columns([
                 Tables\Columns\TextColumn::make('category.name')
                     ->label('Category')

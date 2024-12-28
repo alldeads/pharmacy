@@ -20,6 +20,8 @@ class GenericResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-chart-pie';
 
+    protected static bool $isDiscovered = false;
+
     public static function form(Form $form): Form
     {
         return $form

@@ -41,6 +41,19 @@ class SupplierResource extends Resource
                     ->columnSpanFull(),
                 Forms\Components\TextInput::make('fax')
                     ->columnSpanFull(),
+                Forms\Components\Select::make('Day')
+                    ->options([
+                        'monday' => 'Monday',
+                        'tuesday' => 'Tuesday',
+                        'wednesday' => 'Wednesday',
+                        'thursday' => 'Thursday',
+                        'friday' => 'Friday',
+                        'saturday' => 'Saturday',
+                        'sunday' => 'Sunday',
+                    ])
+                    ->required()
+                    ->default('monday')
+                    ->columnSpanFull(),
                 Forms\Components\Select::make('status')
                     ->options([
                         'active' => 'Active',
@@ -55,11 +68,13 @@ class SupplierResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->modifyQueryUsing(fn($query) => $query->orderBy('id', 'desc'))
+            ->modifyQueryUsing(fn($query) => $query->orderBy('name', 'asc'))
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('nickname')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('day')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('status')
                     ->formatStateUsing(fn($state) => ucfirst($state))
