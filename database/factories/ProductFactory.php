@@ -19,9 +19,10 @@ class ProductFactory extends Factory
     {
         return [
             'generic_id' => rand(1, 20),
-            'category_id' => rand(1, 20),
+            'category_id' => rand(1, 2),
+            'parent_id' => rand(1, 20),
             'sku' => fake()->ean8(),
-            'name' => fake()->word(),
+            'name' => fake()->colorName(),
             'description' => fake()->sentence(),
             'cost' => rand(10, 100),
             'price' => rand(50, 1000),

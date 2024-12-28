@@ -58,15 +58,17 @@ class StockResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->modifyQueryUsing(fn($query) => $query->orderBy('quantity', 'asc'))
+            // ->modifyQueryUsing(fn($query) => $query->orderBy('quantity', 'asc'))
             ->columns([
                 Tables\Columns\TextColumn::make('product.name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('branch.name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('quantity')
+                    ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('threshold')
+                    ->sortable()
                     ->searchable(),
             ])
             ->filters([
@@ -76,12 +78,12 @@ class StockResource extends Resource
                 Tables\Actions\EditAction::make()
                     ->slideOver(),
                 // Tables\Actions\DeleteAction::make(),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
             ]);
+            // ->bulkActions([
+            //     Tables\Actions\BulkActionGroup::make([
+            //         Tables\Actions\DeleteBulkAction::make(),
+            //     ]),
+            // ]);
     }
     public static function getPages(): array
     {

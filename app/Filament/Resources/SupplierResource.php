@@ -72,8 +72,6 @@ class SupplierResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('nickname')
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('day')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('status')

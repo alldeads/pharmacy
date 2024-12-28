@@ -16,8 +16,10 @@ class CategoryFactory extends Factory
      */
     public function definition(): array
     {
+        $arr = ['OTC', 'Prescription'];
+
         return [
-            'name' => fake()->domainWord() . rand(1, 9)
+            'name' => $arr[rand(0,1)]
         ];
     }
 }

@@ -34,7 +34,15 @@ class DatabaseSeeder extends Seeder
 
         $user->assignRole('Super Admin');
 
-        Category::factory(20)->create();
+        Category::create([
+            'name' => 'OTC'
+        ]);
+
+        Category::create([
+            'name' => 'Prescription'
+        ]);
+
+        // Category::factory(2)->create();
         Branch::factory(20)->create();
         // Generic::factory(50)->create();
         Product::factory(100)->create();
