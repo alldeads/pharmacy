@@ -2,26 +2,29 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\StockResource\Pages;
-use App\Filament\Resources\StockResource\RelationManagers;
+use App\Filament\Resources\StockHistoryResource\Pages;
+use App\Filament\Resources\StockHistoryResource\RelationManagers;
 use App\Models\Branch;
 use App\Models\Product;
-use App\Models\Stock;
+use App\Models\StockHistory;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class StockResource extends Resource
+class StockHistoryResource extends Resource
 {
-    protected static ?string $model = Stock::class;
+    protected static ?string $model = StockHistory::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-archive-box';
+    protected static ?string $navigationIcon = 'heroicon-o-arrows-right-left';
 
     protected static ?string $navigationGroup = 'Stocks';
+
+    protected static ?string $label = 'Movement';
 
     public static function form(Form $form): Form
     {
@@ -32,25 +35,23 @@ class StockResource extends Resource
                     ->placeholder('Select product')
                     ->options(Product::pluck('name', 'id'))
                     ->searchable()
-                    ->disabled()
                     ->columnSpanFull(),
                 Forms\Components\Select::make('branch_id')
                     ->label('Branch')
                     ->placeholder('Select branch')
                     ->options(Branch::pluck('name', 'id'))
                     ->searchable()
-                    ->disabled()
                     ->columnSpanFull(),
                 Forms\Components\TextInput::make('quantity')
                     ->label('Quantity')
                     ->required()
                     ->numeric()
-                    ->disabled()
                     ->columnSpanFull(),
-                Forms\Components\TextInput::make('threshold')
-                    ->label('Threshold')
-                    ->required()
-                    ->numeric()
+                Forms\Components\Select::make('movement')
+                    ->options(['remove' => 'Remove', 'add' => 'Add'])
+                    ->columnSpanFull(),
+                Forms\Components\TextArea::make('description')
+                    ->maxLength(255)
                     ->columnSpanFull(),
             ]);
     }
@@ -58,23 +59,40 @@ class StockResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->modifyQueryUsing(fn($query) => $query->orderBy('quantity', 'asc'))
             ->columns([
                 Tables\Columns\TextColumn::make('product.name')
+                    ->numeric()
+                    ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('branch.name')
+                    ->numeric()
+                    ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('quantity')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('threshold')
-                    ->searchable(),
+                    ->numeric()
+                    ->sortable(),
+                IconColumn::make('movement')
+                    ->icon(fn (string $state): string => match ($state) {
+                        'add' => 'heroicon-o-arrow-trending-up',
+                        'remove' => 'heroicon-o-arrow-trending-down',
+                    })
+                    ->color(fn(string $state): string => match ($state) {
+                        'add' => 'success',
+                        'remove' => 'danger',
+                    }),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->dateTime()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make()
-                    ->slideOver(),
+                // Tables\Actions\EditAction::make(),
                 // Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
@@ -83,10 +101,11 @@ class StockResource extends Resource
                 ]),
             ]);
     }
+
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageStocks::route('/'),
+            'index' => Pages\ManageStockHistories::route('/'),
         ];
     }
 }

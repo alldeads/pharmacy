@@ -94,6 +94,8 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('sku')
                     ->label('Sku')
                     ->sortable(),
+                Tables\Columns\TextColumn::make('product.name')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('cost')

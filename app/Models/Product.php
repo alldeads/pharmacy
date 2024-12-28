@@ -35,7 +35,7 @@ class Product extends Model
 
     public function product()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Product::class, 'parent_id', 'id');
     }
 
     public function generic()
