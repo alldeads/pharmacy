@@ -7,6 +7,8 @@ use App\Filament\Resources\ProductResource\RelationManagers;
 use App\Models\Category;
 use App\Models\Generic;
 use App\Models\Product;
+use App\Notifications\ProductExpiredNotification;
+use Carbon\Carbon;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -131,7 +133,18 @@ class ProductResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make()
                     ->modalWidth(MaxWidth::Small)
-                    ->slideOver(),
+                    ->slideOver()
+                    ->after(function ($record) {
+
+                        $productsExpiringSoon = Product::whereBetween('expired_at', [
+                            Carbon::now(),
+                            Carbon::now()->addDays(7),
+                        ])->get();
+
+                        foreach ($productsExpiringSoon as $product) {
+                            auth()->user()->notify(new ProductExpiredNotification($product));
+                        }
+                    }),
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
