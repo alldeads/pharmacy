@@ -36,12 +36,14 @@ class StockHistoryResource extends Resource
                     ->placeholder('Select product')
                     ->options(Product::pluck('name', 'id'))
                     ->searchable()
+                    ->required()
                     ->columnSpanFull(),
                 Forms\Components\Select::make('branch_id')
                     ->label('Branch')
                     ->placeholder('Select branch')
                     ->options(Branch::pluck('name', 'id'))
                     ->searchable()
+                    ->required()
                     ->columnSpanFull(),
                 Forms\Components\TextInput::make('quantity')
                     ->label('Quantity')
