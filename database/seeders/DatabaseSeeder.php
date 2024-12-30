@@ -43,18 +43,18 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // Category::factory(2)->create();
-        Branch::factory(20)->create();
+        // Branch::factory(20)->create();
         // Generic::factory(50)->create();
-        Product::factory(rand(50, 100))->create();
-        Supplier::factory(20)->create();
+        // Product::factory(rand(50, 100))->create();
+        // Supplier::factory(20)->create();
 
-        $products = Product::all();
-
-        foreach ($products as $product) {
-            Stock::factory()->create([
-                'product_id' => $product->id,
-                'branch_id' => rand(1, 20)
-            ]);
-        }
+//         $products = Product::all();
+//
+//         foreach ($products as $product) {
+//             Stock::factory()->create([
+//                 'product_id' => $product->id,
+//                 'branch_id' => rand(1, 20)
+//             ]);
+//         }
     }
 }
