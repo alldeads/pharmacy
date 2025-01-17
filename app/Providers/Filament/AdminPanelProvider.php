@@ -5,6 +5,8 @@ namespace App\Providers\Filament;
 use App\Filament\Resources\BranchResource\Widgets\BranchOverview;
 use Althinect\FilamentSpatieRolesPermissions\FilamentSpatieRolesPermissionsPlugin;
 use App\Filament\Resources\CategoryResource\Widgets\CategoryOverview;
+use App\Filament\Resources\StockHistoryResource\Widgets\StockHistoryChart;
+use App\Filament\Resources\StockHistoryResource\Widgets\TopProductChart;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
@@ -45,6 +47,8 @@ class AdminPanelProvider extends PanelProvider
                 // Widgets\FilamentInfoWidget::class,
                 BranchOverview::class,
                 // CategoryOverview::class,
+                StockHistoryChart::class,
+                TopProductChart::class
             ])
             ->middleware([
                 EncryptCookies::class,
