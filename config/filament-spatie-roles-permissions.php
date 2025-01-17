@@ -31,8 +31,8 @@ return [
      * Set as true to use simple modal resource.
      */
     'should_use_simple_modal_resource' => [
-        'permissions' => false,
-        'roles' => false,
+        'permissions' => true,
+        'roles' => true,
     ],
 
     /*
@@ -77,7 +77,7 @@ return [
 
     'guard_names' => [
         'web' => 'web',
-        'api' => 'api',
+        // 'api' => 'api',
     ],
 
     'toggleable_guard_names' => [
