@@ -62,6 +62,7 @@ class StockNotification extends Notification
 
         return FilamentNotification::make()
             ->title($message)
+            ->warning()
             ->getDatabaseMessage();
     }
 }
