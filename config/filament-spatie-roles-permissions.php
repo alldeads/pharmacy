@@ -11,7 +11,7 @@ return [
 
     'preload_permissions' => true,
 
-    'navigation_section_group' => 'filament-spatie-roles-permissions::filament-spatie.section.roles_and_permissions', // Default uses language constant
+    'navigation_section_group' => 'Settings', // Default uses language constant
 
     'team_model' => \App\Models\Team::class,
 
@@ -89,10 +89,10 @@ return [
         ],
     ],
 
-    'default_guard_name' => null,
+    'default_guard_name' => 'web',
 
     // if false guard option will not be show on screen. You should set a default_guard_name in this case
-    'should_show_guard' => true,
+    'should_show_guard' => false,
 
     'model_filter_key' => 'return \'%\'.$value;', // Eg: 'return \'%\'.$key.'\%\';'
 
@@ -120,7 +120,7 @@ return [
      */
     'icons' => [
         'role_navigation' => 'heroicon-o-lock-closed',
-        'permission_navigation' => 'heroicon-o-lock-closed',
+        'permission_navigation' => 'heroicon-o-wrench',
     ],
 
     /*
