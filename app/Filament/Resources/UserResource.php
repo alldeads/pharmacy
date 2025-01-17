@@ -38,6 +38,7 @@ class UserResource extends Resource
                 Forms\Components\TextInput::make('password')
                     ->password()
                     ->required()
+                    ->revealable()
                     ->hiddenOn('edit')
                     ->maxLength(255),
             ]);
