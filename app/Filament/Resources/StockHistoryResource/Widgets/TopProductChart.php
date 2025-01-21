@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 class TopProductChart extends ChartWidget
 {
-    protected static ?string $heading = 'Top 10 Most Sold Products';
+    protected static ?string $heading = 'Top 5 Most Sold Products';
 
     protected function getData(): array
     {
@@ -19,7 +19,7 @@ class TopProductChart extends ChartWidget
             ->whereYear('created_at', '2025')
             ->groupBy('product_id')
             ->orderByDesc('total_sold')
-            ->limit(10)
+            ->limit(5)
             ->get();
 
         return [
@@ -29,7 +29,7 @@ class TopProductChart extends ChartWidget
                     'data' => $topSoldProducts->map(fn($product) => round($product->total_sold, 2)),
                 ],
             ],
-            'labels' => $topSoldProducts->map(fn($product) => $product->product->name),
+            'labels' => $topSoldProducts->map(fn($product) => $product->product?->name),
         ];
     }
 
