@@ -13,7 +13,11 @@ class TopProductChart extends ChartWidget
     protected function getData(): array
     {
         $topSoldProducts = StockHistory::query()
-            ->with('product')
+            ->with([
+                'product' => function ($query) {
+                    $query->withTrashed();
+                }
+            ])
             ->select('product_id', DB::raw('SUM(quantity) as total_sold'))
             ->where('movement', 'remove')
             ->whereYear('created_at', '2025')
