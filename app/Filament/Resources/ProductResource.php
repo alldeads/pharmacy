@@ -2,10 +2,9 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Exports\ProductExporter;
 use App\Filament\Resources\ProductResource\Pages;
-use App\Filament\Resources\ProductResource\RelationManagers;
 use App\Models\Category;
-use App\Models\Generic;
 use App\Models\Product;
 use App\Notifications\ProductExpiredNotification;
 use Carbon\Carbon;
@@ -14,9 +13,8 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Support\Enums\MaxWidth;
 use Filament\Tables;
+use Filament\Tables\Actions\ExportAction;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ProductResource extends Resource
 {
@@ -40,12 +38,6 @@ class ProductResource extends Resource
                     ->required()
                     ->searchable()
                     ->columnSpanFull(),
-                // Forms\Components\Select::make('generic_id')
-                //     ->label('Generic')
-                //     ->options(Generic::pluck('name', 'id'))
-                //     ->required()
-                //     ->searchable()
-                //     ->columnSpanFull(),
                 Forms\Components\TextInput::make('sku')
                     ->label('SKU')
                     ->required()
@@ -87,6 +79,10 @@ class ProductResource extends Resource
     {
         return $table
             ->modifyQueryUsing(fn($query) => $query->orderBy('name', 'asc'))
+            ->headerActions([
+                ExportAction::make()
+                    ->exporter(ProductExporter::class)
+            ])
             ->columns([
                 Tables\Columns\TextColumn::make('category.name')
                     ->label('Category')
@@ -104,6 +100,11 @@ class ProductResource extends Resource
                     ->money('php')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('id')
+                    ->label('Quantity')
+                    ->formatStateUsing(function ($record) {
+                        return $record->stocks()->sum('quantity');
+                    }),
                 Tables\Columns\TextColumn::make('price')
                     ->money('php')
                     ->sortable(),

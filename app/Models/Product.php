@@ -42,4 +42,9 @@ class Product extends Model
     {
         return $this->belongsTo(Generic::class);
     }
+
+    public function stocks()
+    {
+        return $this->hasMany(Stock::class);
+    }
 }
