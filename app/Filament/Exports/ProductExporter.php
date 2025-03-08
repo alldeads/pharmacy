@@ -14,7 +14,15 @@ class ProductExporter extends Exporter
     public static function getColumns(): array
     {
         return [
+            ExportColumn::make('sku'),
+            ExportColumn::make('name'),
+            ExportColumn::make('price'),
             ExportColumn::make('category.name'),
+            ExportColumn::make('quantity')->state(function (Product $record): float {
+                return $record->stocks()->sum('quantity');
+            }),
+            ExportColumn::make('status'),
+            ExportColumn::make('expired_at'),
         ];
     }
 
