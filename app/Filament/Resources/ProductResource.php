@@ -30,12 +30,12 @@ class ProductResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('parent_id')
-                    ->label('Product Name')
-                    ->placeholder('Select product name')
-                    ->options(Product::pluck('name', 'id'))
-                    ->searchable()
-                    ->columnSpanFull(),
+                // Forms\Components\Select::make('parent_id')
+                //     ->label('Product Name')
+                //     ->placeholder('Select product name')
+                //     ->options(Product::pluck('name', 'id'))
+                //     ->searchable()
+                //     ->columnSpanFull(),
                 Forms\Components\Select::make('category_id')
                     ->label('Category')
                     ->options(Category::pluck('name', 'id'))
@@ -48,6 +48,7 @@ class ProductResource extends Resource
                     ->numeric()
                     ->columnSpanFull(),
                 Forms\Components\TextInput::make('name')
+                    ->label('Product Name')
                     ->required()
                     ->maxLength(255)
                     ->columnSpanFull(),
@@ -96,8 +97,8 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('sku')
                     ->label('Sku')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('product.name')
-                    ->searchable(),
+                // Tables\Columns\TextColumn::make('product.name')
+                //     ->searchable(),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('cost')
