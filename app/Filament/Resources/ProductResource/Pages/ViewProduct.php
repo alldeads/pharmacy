@@ -13,6 +13,7 @@ use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Infolist;
 use Filament\Resources\Pages\ViewRecord;
 use Filament\Support\Enums\FontWeight;
+use Filament\Support\Enums\MaxWidth;
 use Filament\Tables\Table;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Model;
@@ -24,7 +25,9 @@ class ViewProduct extends ViewRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\EditAction::make(),
+            Actions\EditAction::make()
+                ->modalWidth(MaxWidth::Small)
+                ->slideOver(),
         ];
     }
 
@@ -77,7 +80,7 @@ class ViewProduct extends ViewRecord
                                                      ->formatStateUsing(fn (string $state, Model $record): View => view(
                                                         'components.custom-href',
                                                         ['state' => $state, 'record' => $record->branch_id, 'model' => 'branches'],
-                                                    )),
+                                                     )),
                                                 TextEntry::make('quantity')
                                                     ->hiddenLabel()
                                             ])

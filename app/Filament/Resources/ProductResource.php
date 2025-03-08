@@ -170,7 +170,7 @@ class ProductResource extends Resource
             'index' => Pages\ListProducts::route('/'),
             // 'create' => Pages\CreateProduct::route('/create'),
             'view' => Pages\ViewProduct::route('/{record}'),
-            'edit' => Pages\EditProduct::route('/{record}/edit'),
+            // 'edit' => Pages\EditProduct::route('/{record}/edit'),
         ];
     }
 }
