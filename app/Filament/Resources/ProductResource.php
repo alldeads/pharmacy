@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Exports\ProductExporter;
 use App\Filament\Resources\ProductResource\Pages;
+use App\Filament\Resources\ProductResource\RelationManagers;
 use App\Models\Category;
 use App\Models\Product;
 use App\Notifications\ProductExpiredNotification;
@@ -12,15 +13,18 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Support\Enums\MaxWidth;
+use Filament\Actions;
 use Filament\Tables;
 use Filament\Tables\Actions\ExportAction;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ProductResource extends Resource
 {
     protected static ?string $model = Product::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-shopping-bag';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {
@@ -81,7 +85,7 @@ class ProductResource extends Resource
             ->modifyQueryUsing(fn($query) => $query->orderBy('name', 'asc'))
             ->headerActions([
                 ExportAction::make()
-                    ->exporter(ProductExporter::class)
+                    ->exporter(ProductExporter::class),
             ])
             ->columns([
                 Tables\Columns\TextColumn::make('category.name')
@@ -128,9 +132,6 @@ class ProductResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->filters([
-                //
-            ])
             ->actions([
                 Tables\Actions\EditAction::make()
                     ->modalWidth(MaxWidth::Small)
@@ -146,6 +147,7 @@ class ProductResource extends Resource
                             auth()->user()->notify(new ProductExpiredNotification($product));
                         }
                     }),
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
@@ -155,10 +157,20 @@ class ProductResource extends Resource
             ]);
     }
 
+    public static function getRelations(): array
+    {
+        return [
+            //
+        ];
+    }
+
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ManageProducts::route('/'),
+            'index' => Pages\ListProducts::route('/'),
+            // 'create' => Pages\CreateProduct::route('/create'),
+            'view' => Pages\ViewProduct::route('/{record}'),
+            'edit' => Pages\EditProduct::route('/{record}/edit'),
         ];
     }
 }

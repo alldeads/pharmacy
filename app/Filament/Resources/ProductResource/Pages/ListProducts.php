@@ -4,10 +4,10 @@ namespace App\Filament\Resources\ProductResource\Pages;
 
 use App\Filament\Resources\ProductResource;
 use Filament\Actions;
-use Filament\Resources\Pages\ManageRecords;
+use Filament\Resources\Pages\ListRecords;
 use Filament\Support\Enums\MaxWidth;
 
-class ManageProducts extends ManageRecords
+class ListProducts extends ListRecords
 {
     protected static string $resource = ProductResource::class;
 
@@ -15,6 +15,7 @@ class ManageProducts extends ManageRecords
     {
         return [
             Actions\CreateAction::make()
+                ->disableCreateAnother()
                 ->modalWidth(MaxWidth::Small)
                 ->slideOver(),
         ];

@@ -77,6 +77,7 @@ class BranchResource extends Resource
                 Tables\Actions\EditAction::make()
                     ->modalWidth(MaxWidth::Small)
                     ->slideOver(),
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
@@ -90,6 +91,7 @@ class BranchResource extends Resource
     {
         return [
             'index' => Pages\ManageBranches::route('/'),
+            'view' => Pages\ViewBranch::route('/{record}'),
         ];
     }
 }

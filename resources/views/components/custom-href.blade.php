@@ -1,0 +1,1 @@
+<a href="{{ url("/admin/{$model}/{$record}") }}"> {{ $state }}</a>
