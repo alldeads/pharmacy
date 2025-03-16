@@ -49,6 +49,7 @@ class StockHistoryResource extends Resource
                     ->label('Quantity')
                     ->required()
                     ->numeric()
+                    ->minValue(1)
                     ->columnSpanFull(),
                 Forms\Components\Select::make('movement')
                     ->options(['remove' => 'Remove', 'add' => 'Add'])

@@ -24,10 +24,11 @@ class ManageStockHistories extends ManageRecords
                         'branch_id' => $record->branch_id
                     ])->first();
 
+                    $quantity = $record->movement == 'add' ? abs($record->quantity) : -1 * abs($record->quantity);
+
                     if ($stock) {
-                        $stock->quantity = $record->movement == 'add' ?
-                            $stock->quantity + $record->quantity :
-                            $stock->quantity - $record->quantity;
+
+                        $stock->quantity += $quantity;
                         $stock->save();
 
                         if ($stock->quantity <= $stock->threshold) {
@@ -37,7 +38,7 @@ class ManageStockHistories extends ManageRecords
                         $stock = Stock::create([
                             'product_id' => $record->product_id,
                             'branch_id' => $record->branch_id,
-                            'quantity' => $record->quantity,
+                            'quantity' => $quantity,
                             'threshold' => 50
                         ]);
                     }
